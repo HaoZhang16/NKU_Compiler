@@ -1,5 +1,4 @@
-// 输入两个数，检索两数之间（闭区间）的质数数量
-int primes[3] = {};
+// 输入两个数，检索两数之间（闭区间）的质数数量，并输出前三个质数
 
 int is_prime(int n)
 {
@@ -24,15 +23,15 @@ int main()
         if (is_prime(i)) 
         {
             total++;
-            if (total < 3) 
+            if (total <= 3) 
             {  // 保存前3个质数
-                primes[total] = i;
+                primes[total-1] = i;
             }
         }
     }
 
     putint(total);
-    putch(0); // 换行
+    putch(10); // 换行
     putarray(3, primes); // 输出3个质数
     return 0;
 }
