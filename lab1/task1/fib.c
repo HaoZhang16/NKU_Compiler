@@ -1,8 +1,12 @@
 #include <stdio.h>
 
+#define A a
+// hello world !
+
+
 int main() {
     int a, b, i, t, n;
-    a = 0;
+    A = 0;
     b = 1;
     i = 1;
     scanf("%d", &n);
