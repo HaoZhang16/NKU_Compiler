@@ -1,73 +1,91 @@
-	.text
+	.arch armv8-a
 	.file	"fib.c"
-	.globl	main                            # -- Begin function main
-	.p2align	4, 0x90
-	.type	main,@function
-main:                                   # @main
+	.text
+	.section	.rodata
+	.align	3
+.LC0:
+	.string	"%d"
+	.align	3
+.LC1:
+	.string	"%d\n"
+	.text
+	.align	2
+	.global	main
+	.type	main, %function
+main:
+.LFB0:
 	.cfi_startproc
-# %bb.0:
-	pushq	%rbp
-	.cfi_def_cfa_offset 16
-	.cfi_offset %rbp, -16
-	movq	%rsp, %rbp
-	.cfi_def_cfa_register %rbp
-	subq	$32, %rsp
-	movl	$0, -24(%rbp)
-	movl	$0, -12(%rbp)
-	movl	$1, -4(%rbp)
-	movl	$1, -8(%rbp)
-	movabsq	$.L.str, %rdi
-	leaq	-16(%rbp), %rsi
-	movb	$0, %al
-	callq	__isoc99_scanf@PLT
-	movl	-12(%rbp), %esi
-	movabsq	$.L.str.1, %rdi
-	movb	$0, %al
-	callq	printf@PLT
-	movl	-4(%rbp), %esi
-	movabsq	$.L.str.1, %rdi
-	movb	$0, %al
-	callq	printf@PLT
-.LBB0_1:                                # =>This Inner Loop Header: Depth=1
-	movl	-8(%rbp), %eax
-	cmpl	-16(%rbp), %eax
-	jge	.LBB0_3
-# %bb.2:                                #   in Loop: Header=BB0_1 Depth=1
-	movl	-4(%rbp), %eax
-	movl	%eax, -20(%rbp)
-	movl	-12(%rbp), %eax
-	addl	-4(%rbp), %eax
-	movl	%eax, -4(%rbp)
-	movl	-4(%rbp), %esi
-	movabsq	$.L.str.1, %rdi
-	movb	$0, %al
-	callq	printf@PLT
-	movl	-20(%rbp), %eax
-	movl	%eax, -12(%rbp)
-	movl	-8(%rbp), %eax
-	addl	$1, %eax
-	movl	%eax, -8(%rbp)
-	jmp	.LBB0_1
-.LBB0_3:
-	xorl	%eax, %eax
-	addq	$32, %rsp
-	popq	%rbp
-	.cfi_def_cfa %rsp, 8
-	retq
-.Lfunc_end0:
-	.size	main, .Lfunc_end0-main
+	sub	sp, sp, #48
+	.cfi_def_cfa_offset 48
+	stp	x29, x30, [sp, 32]
+	.cfi_offset 29, -16
+	.cfi_offset 30, -8
+	add	x29, sp, 32
+	adrp	x0, :got:__stack_chk_guard
+	ldr	x0, [x0, :got_lo12:__stack_chk_guard]
+	ldr	x1, [x0]
+	str	x1, [sp, 24]
+	mov	x1, 0
+	str	wzr, [sp, 8]
+	mov	w0, 1
+	str	w0, [sp, 12]
+	mov	w0, 1
+	str	w0, [sp, 16]
+	add	x0, sp, 4
+	mov	x1, x0
+	adrp	x0, .LC0
+	add	x0, x0, :lo12:.LC0
+	bl	__isoc99_scanf
+	ldr	w1, [sp, 8]
+	adrp	x0, .LC1
+	add	x0, x0, :lo12:.LC1
+	bl	printf
+	ldr	w1, [sp, 12]
+	adrp	x0, .LC1
+	add	x0, x0, :lo12:.LC1
+	bl	printf
+	b	.L2
+.L3:
+	ldr	w0, [sp, 12]
+	str	w0, [sp, 20]
+	ldr	w1, [sp, 12]
+	ldr	w0, [sp, 8]
+	add	w0, w1, w0
+	str	w0, [sp, 12]
+	ldr	w1, [sp, 12]
+	adrp	x0, .LC1
+	add	x0, x0, :lo12:.LC1
+	bl	printf
+	ldr	w0, [sp, 20]
+	str	w0, [sp, 8]
+	ldr	w0, [sp, 16]
+	add	w0, w0, 1
+	str	w0, [sp, 16]
+.L2:
+	ldr	w0, [sp, 4]
+	ldr	w1, [sp, 16]
+	cmp	w1, w0
+	blt	.L3
+	mov	w0, 0
+	mov	w1, w0
+	adrp	x0, :got:__stack_chk_guard
+	ldr	x0, [x0, :got_lo12:__stack_chk_guard]
+	ldr	x3, [sp, 24]
+	ldr	x2, [x0]
+	subs	x3, x3, x2
+	mov	x2, 0
+	beq	.L5
+	bl	__stack_chk_fail
+.L5:
+	mov	w0, w1
+	ldp	x29, x30, [sp, 32]
+	add	sp, sp, 48
+	.cfi_restore 29
+	.cfi_restore 30
+	.cfi_def_cfa_offset 0
+	ret
 	.cfi_endproc
-                                        # -- End function
-	.type	.L.str,@object                  # @.str
-	.section	.rodata.str1.1,"aMS",@progbits,1
-.L.str:
-	.asciz	"%d"
-	.size	.L.str, 3
-
-	.type	.L.str.1,@object                # @.str.1
-.L.str.1:
-	.asciz	"%d\n"
-	.size	.L.str.1, 4
-
-	.ident	"Ubuntu clang version 18.1.3 (1ubuntu1)"
-	.section	".note.GNU-stack","",@progbits
+.LFE0:
+	.size	main, .-main
+	.ident	"GCC: (Ubuntu 13.3.0-6ubuntu2~24.04) 13.3.0"
+	.section	.note.GNU-stack,"",@progbits
