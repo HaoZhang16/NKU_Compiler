@@ -1,0 +1,64 @@
+
+;; Function main (main, funcdef_no=23, decl_uid=5027, cgraph_uid=24, symbol_order=23) (executed once)
+
+;; 2 loops found
+;;
+;; Loop 0
+;;  header 0, latch 1
+;;  depth 0, outer -1
+;;  nodes: 0 1 2 5 3 6 4
+;;
+;; Loop 1
+;;  header 3, latch 6
+;;  depth 1, outer 0
+;;  nodes: 3 6
+;; 2 succs { 5 4 }
+;; 5 succs { 3 }
+;; 3 succs { 6 4 }
+;; 6 succs { 3 }
+;; 4 succs { 1 }
+Exported global range table:
+============================
+i_10  : [irange] int [2, +INF] NONZERO 0x7fffffff
+i_21  : [irange] int [1, 2147483646] NONZERO 0x7fffffff
+Removing basic block 5
+Removing basic block 6
+int main ()
+{
+  int n;
+  int i;
+  int b;
+  int a;
+  int n.0_1;
+  int n.0_18;
+
+  <bb 2> [local count: 118111600]:
+  scanf ("%d", &n);
+  __printf_chk (2, "%d\n", 0);
+  __printf_chk (2, "%d\n", 1);
+  n.0_18 = n;
+  if (n.0_18 > 1)
+    goto <bb 3>; [89.00%]
+  else
+    goto <bb 4>; [11.00%]
+
+  <bb 3> [local count: 955630225]:
+  # a_19 = PHI <b_20(3), 0(2)>
+  # b_20 = PHI <b_9(3), 1(2)>
+  # i_21 = PHI <i_10(3), 1(2)>
+  b_9 = a_19 + b_20;
+  __printf_chk (2, "%d\n", b_9);
+  i_10 = i_21 + 1;
+  n.0_1 = n;
+  if (n.0_1 > i_10)
+    goto <bb 3>; [89.00%]
+  else
+    goto <bb 4>; [11.00%]
+
+  <bb 4> [local count: 118111600]:
+  n ={v} {CLOBBER(eol)};
+  return 0;
+
+}
+
+

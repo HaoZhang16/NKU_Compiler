@@ -1,0 +1,58 @@
+
+;; Function printf (printf, funcdef_no=15, decl_uid=1742, cgraph_uid=16, symbol_order=15)
+
+Not splitting: disregarding inline limits.
+__attribute__((artificial, gnu_inline, always_inline))
+__attribute__((nonnull (1), format (printf, 1, 2)))
+int printf (const char * restrict __fmt)
+{
+  int _4;
+
+  <bb 2> [local count: 1073741824]:
+  _4 = __printf_chk (2, __fmt_2(D), __builtin_va_arg_pack ());
+  return _4;
+
+}
+
+
+
+;; Function main (main, funcdef_no=23, decl_uid=5027, cgraph_uid=24, symbol_order=23) (executed once)
+
+Not splitting: main function.
+int main ()
+{
+  int n;
+  int t;
+  int i;
+  int b;
+  int a;
+  int n.0_1;
+
+  <bb 2> [local count: 118111600]:
+  scanf ("%d", &n);
+  __printf_chk (2, "%d\n", 0);
+  __printf_chk (2, "%d\n", 1);
+  goto <bb 4>; [100.00%]
+
+  <bb 3> [local count: 955630225]:
+  b_16 = a_2 + b_3;
+  __printf_chk (2, "%d\n", b_16);
+  i_19 = i_4 + 1;
+
+  <bb 4> [local count: 1073741824]:
+  # a_2 = PHI <0(2), b_3(3)>
+  # b_3 = PHI <1(2), b_16(3)>
+  # i_4 = PHI <1(2), i_19(3)>
+  n.0_1 = n;
+  if (n.0_1 > i_4)
+    goto <bb 3>; [89.00%]
+  else
+    goto <bb 5>; [11.00%]
+
+  <bb 5> [local count: 118111600]:
+  n ={v} {CLOBBER(eol)};
+  return 0;
+
+}
+
+

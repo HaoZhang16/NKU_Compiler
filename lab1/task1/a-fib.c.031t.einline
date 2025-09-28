@@ -1,0 +1,81 @@
+
+;; Function printf (printf, funcdef_no=15, decl_uid=1742, cgraph_uid=16, symbol_order=15)
+
+__attribute__((artificial, gnu_inline, always_inline))
+__attribute__((nonnull (1), format (printf, 1, 2)))
+int printf (const char * restrict __fmt)
+{
+  int _4;
+
+  <bb 2> :
+  _4 = __printf_chk (2, __fmt_2(D), __builtin_va_arg_pack ());
+  return _4;
+
+}
+
+
+
+;; Function main (main, funcdef_no=23, decl_uid=5027, cgraph_uid=24, symbol_order=23)
+
+Iterations: 0
+
+Symbols to be put in SSA form
+{ D.5044 }
+Incremental SSA update started at block: 0
+Number of blocks in CFG: 12
+Number of blocks to update: 11 ( 92%)
+
+
+Merging blocks 2 and 9
+Merging blocks 3 and 11
+Removing basic block 6
+Removing basic block 8
+Merging blocks 2 and 7
+Merging blocks 3 and 10
+int main ()
+{
+  int n;
+  int t;
+  int i;
+  int b;
+  int a;
+  int n.0_1;
+  int _13;
+  int _20;
+  int _21;
+  int _22;
+
+  <bb 2> :
+  a_6 = 0;
+  b_7 = 1;
+  i_8 = 1;
+  scanf ("%d", &n);
+  _21 = __printf_chk (2, "%d\n", a_6);
+  _20 = __printf_chk (2, "%d\n", b_7);
+  goto <bb 4>; [100.00%]
+
+  <bb 3> :
+  t_15 = b_3;
+  b_16 = a_2 + b_3;
+  _22 = __printf_chk (2, "%d\n", b_16);
+  a_18 = t_15;
+  i_19 = i_4 + 1;
+
+  <bb 4> :
+  # a_2 = PHI <a_6(2), a_18(3)>
+  # b_3 = PHI <b_7(2), b_16(3)>
+  # i_4 = PHI <i_8(2), i_19(3)>
+  n.0_1 = n;
+  if (i_4 < n.0_1)
+    goto <bb 3>; [INV]
+  else
+    goto <bb 5>; [INV]
+
+  <bb 5> :
+  _13 = 0;
+  n ={v} {CLOBBER(eol)};
+  return _13;
+
+}
+
+
